@@ -1,3 +1,6 @@
+# General files
+.gitkeep
+
 # Operating System files
 .DS_Store
 Thumbs.db
