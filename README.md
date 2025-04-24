@@ -41,3 +41,7 @@ The plugin follows this structure:
 1. Search & replace wp-plugin-boilerplate to do the renaming work based on the context.
 
 2. Rename namespace from Plugin_Boilerplate prefixed with initial prefix `VG` to your desired namespace in composer.json (VG\\Plugin_Boilerplate\\) & scoper.inc.php (VG\Plugin_Boilerplate\ThirdParty).
+
+# Lifecycle Hooks:
+
+This boilerplate intentionally omits specific activation, deactivation, and uninstall hooks. This decision provides maximum flexibility for developers to implement these crucial functions according to their plugin's unique architecture. Consider whether your plugin requires specific actions upon activation (e.g., setting up default options, creating database tables), deactivation (e.g., cleaning up temporary data), or uninstallation (e.g., removing all plugin-related data) and implement the appropriate hooks in your plugin's main file or within dedicated classes.
