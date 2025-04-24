@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<ruleset name="Custom WordPress Standards">
+    <description>
+        Custom WordPress coding standards for the wp-plugin-boilerplate plugin.
+        This ruleset includes PHPCompatibilityWP, targets PHP 7.4+, and follows WordPress
+        Coding Standards with PSR-4 compliance.
+    </description>
+
+
+    <exclude-pattern>*/phpunit.xml*</exclude-pattern>
+    <exclude-pattern>*/build/*</exclude-pattern>
+    <exclude-pattern>*/languages/*</exclude-pattern>
+
+    <!-- Third-party code -->
+    <exclude-pattern>*/bower-components/*</exclude-pattern>
+    <exclude-pattern>*/node_modules/*</exclude-pattern>
+    <exclude-pattern>*/vendor/*</exclude-pattern>
+    <exclude-pattern type="relative">^third-party/*</exclude-pattern>
+    <exclude-pattern type="relative">scoper.inc.php</exclude-pattern>
+
+    <!-- Ensure certain file types aren't sniffed -->
+    <exclude-pattern>*\.(css|js)</exclude-pattern>
+
+    <!-- Show progress and sniff codes in all reports. -->
+    <arg value="ps"/>
+
+    <!-- A path to strip from the front of file paths inside reports. -->
+    <arg name="basepath" value="/"/>
+    <arg name="colors"/>
+    <arg name="extensions" value="php"/>
+
+    <!-- Sets the minimum supported WP version to 6.5. -->
+    <config name="minimum_supported_wp_version" value="6.5" />
+
+    <!-- Target PHP version -->
+    <config name="testVersion" value="7.4-" />
+    <rule ref="PHPCompatibilityWP" />
+
+    <!-- WordPress coding standards. -->
+    <rule ref="WordPress">
+        <!-- Exclude invalid class file naming as we use PSR-4 naming conventions. -->
+        <exclude name="WordPress.Files.FileName.InvalidClassFileName"/>
+
+        <!-- Exclude non-hyphenated lowercase file name rule for PSR-4 compliance. -->
+        <exclude name="WordPress.Files.FileName.NotHyphenatedLowercase"/>
+    </rule>
+</ruleset>

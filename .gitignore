@@ -1,0 +1,53 @@
+# Operating System files
+.DS_Store
+Thumbs.db
+
+# IDE/Editor files
+.idea/
+.vscode/
+*.iml
+*.sublime-project
+*.sublime-workspace
+
+# Logs and debug files
+debug.log
+*.log
+
+# Local environment and config files
+wp-cli.local.yml
+.env
+.env.local
+.env.*.local
+
+# Node.js dependencies
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Composer dependencies
+vendor/
+third-party/
+
+# Build and deployment artifacts
+build/
+dist/
+.cache/
+*.tar.gz
+*.zip
+
+# Testing and CI/CD
+phpcs.xml.cache
+coverage.xml
+.junit.xml
+
+# Database backups and temporary files
+*.sql
+*.sql.gz
+*.bak
+*.tmp
+*.old
+
+# Temporary files created by editors or processes
+*.swp
+*.swo
+.aider*
