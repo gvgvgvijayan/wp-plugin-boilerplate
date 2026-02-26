@@ -25,9 +25,6 @@
 		},
 		"classmap": [
 			"third-party/"
-		],
-		"files": [
-			"includes/index.php"
 		]
 	},
 	"config": {
