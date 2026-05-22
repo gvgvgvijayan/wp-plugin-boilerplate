@@ -63,12 +63,13 @@ return [
             'composer.json',
         ]),
         */
-		$finder::create()->files()
-		->in( [
-			'vendor/php-di',
-			'vendor/psr/container'
-		] )
-		->name( [ '*.php', 'LICENSE', 'composer.json' ] ),
+		// Example: Uncomment and adjust to scope your vendor dependencies.
+		// $finder::create()->files()
+		// ->in( [
+		// 	'vendor/php-di',
+		// 	'vendor/psr/container'
+		// ] )
+		// ->name( [ '*.php', 'LICENSE', 'composer.json' ] ),
     ],
 
     // List of excluded files, i.e. files for which the content will be left untouched.

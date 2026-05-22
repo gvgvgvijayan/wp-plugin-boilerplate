@@ -5,6 +5,9 @@
 .DS_Store
 Thumbs.db
 
+# opencode tasks
+.opencode/
+
 # IDE/Editor files
 .idea/
 .vscode/
