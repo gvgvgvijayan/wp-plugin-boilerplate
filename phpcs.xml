@@ -21,6 +21,10 @@
     <!-- Ensure certain file types aren't sniffed -->
     <exclude-pattern>*\.(css|js)</exclude-pattern>
 
+    <!-- The source directories to process. -->
+    <file>includes/</file>
+    <file>uninstall.php</file>
+
     <!-- Show progress and sniff codes in all reports. -->
     <arg value="ps"/>
 
