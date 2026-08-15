@@ -32,7 +32,15 @@ yarn-error.log
 
 # Composer dependencies
 vendor/
-third-party/
+
+# The third-party/ directory must exist locally (composer classmap scans it),
+# but it is normally populated by PHP-Scoper. Track its .gitkeep files so the
+# directory persists across clones, while keeping scoped PHP files ignored.
+third-party/*
+!third-party/.gitkeep
+!third-party/**/
+!third-party/**/.gitkeep
+third-party/**/*.php
 
 # Build and deployment artifacts
 build/
@@ -45,6 +53,11 @@ dist/
 phpcs.xml.cache
 coverage.xml
 .junit.xml
+.phpunit.cache/
+.phpunit.result.cache
+artifacts/
+tests/e2e/artifacts/
+playwright-report/
 
 # Database backups and temporary files
 *.sql
