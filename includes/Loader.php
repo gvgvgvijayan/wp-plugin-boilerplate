@@ -134,6 +134,13 @@ class Loader {
 		add_action( 'init', array( $this, 'register_blocks' ) );
 		add_action( 'rest_api_init', array( $this, 'register_rest_routes' ) );
 
+		// Admin page for the Data Views skeleton.
+		add_action( 'admin_menu', array( $this, 'register_admin_page' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_assets' ) );
+
+		// Block editor assets (block styles + slotfills).
+		add_action( 'enqueue_block_editor_assets', array( $this, 'enqueue_editor_assets' ) );
+
 		// Register any services that expose hooks.
 		$this->initialize_services();
 	}
@@ -176,11 +183,17 @@ class Loader {
 	 */
 	public function register_blocks() {
 		/*
-		 * Blocks are discovered from block.json via wp-scripts; register the
-		 * build output directory here. Uncomment and adjust per project:
+		 * Blocks are discovered from block.json via wp-scripts. Register each
+		 * block by pointing to its build directory. Add more as you create
+		 * them, e.g.:
 		 *
-		 * register_block_type( __DIR__ . '/../build/blocks/my-block' );
+		 * register_block_type( __DIR__ . '/../build/blocks/another-block' );
 		 */
+		$sample_block = VG_PLUGIN_BOILERPLATE_PLUGIN_DIR . 'build/blocks/sample-block';
+
+		if ( file_exists( $sample_block . '/block.json' ) ) {
+			register_block_type( $sample_block );
+		}
 	}
 
 	/**
@@ -208,6 +221,116 @@ class Loader {
 		 *     }
 		 * }
 		 */
+	}
+
+	/**
+	 * Register the admin page that hosts the Data Views skeleton.
+	 *
+	 * Adds a top-level menu item. Adjust capability and position per project.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @return void
+	 */
+	public function register_admin_page() {
+		add_menu_page(
+			__( 'Appointments', 'vg-plugin-boilerplate' ),
+			__( 'Appointments', 'vg-plugin-boilerplate' ),
+			'manage_options',
+			'vg-plugin-boilerplate-appointments',
+			array( $this, 'render_admin_page' ),
+			'dashicons-calendar-alt',
+			26
+		);
+	}
+
+	/**
+	 * Render the admin page container that the React app mounts to.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @return void
+	 */
+	public function render_admin_page() {
+		echo '<div id="vg-plugin-boilerplate-appointments" class="wrap"></div>';
+	}
+
+	/**
+	 * Enqueue admin-only assets (Data Views skeleton).
+	 *
+	 * Only loads on the plugin's own admin page to avoid polluting other screens.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @param string $hook_suffix The current admin page hook suffix.
+	 * @return void
+	 */
+	public function enqueue_admin_assets( $hook_suffix ) {
+		// Only enqueue on our own admin page.
+		if ( 'toplevel_page_vg-plugin-boilerplate-appointments' !== $hook_suffix ) {
+			return;
+		}
+
+		$asset_file = VG_PLUGIN_BOILERPLATE_PLUGIN_DIR . 'build/admin-appointments.asset.php';
+		if ( ! file_exists( $asset_file ) ) {
+			return;
+		}
+
+		$asset = include $asset_file;
+
+		wp_enqueue_script(
+			'vg-plugin-boilerplate-admin-appointments',
+			VG_PLUGIN_BOILERPLATE_PLUGIN_URL . 'build/admin-appointments.js',
+			$asset['dependencies'] ?? array(),
+			$asset['version'] ?? VG_PLUGIN_BOILERPLATE_VERSION,
+			true
+		);
+
+		wp_enqueue_style(
+			'vg-plugin-boilerplate-admin-appointments',
+			VG_PLUGIN_BOILERPLATE_PLUGIN_URL . 'build/style-admin-appointments.css',
+			array(),
+			$asset['version'] ?? VG_PLUGIN_BOILERPLATE_VERSION
+		);
+	}
+
+	/**
+	 * Enqueue block editor assets (block styles + slotfills).
+	 *
+	 * @since 0.1.0
+	 *
+	 * @return void
+	 */
+	public function enqueue_editor_assets() {
+		$handle     = 'vg-plugin-boilerplate-block-styles';
+		$asset_file = VG_PLUGIN_BOILERPLATE_PLUGIN_DIR . 'build/block-styles.asset.php';
+
+		if ( file_exists( $asset_file ) ) {
+			$asset = include $asset_file;
+
+			wp_enqueue_script(
+				$handle,
+				VG_PLUGIN_BOILERPLATE_PLUGIN_URL . 'build/block-styles.js',
+				$asset['dependencies'] ?? array(),
+				$asset['version'] ?? VG_PLUGIN_BOILERPLATE_VERSION,
+				true
+			);
+		}
+
+		$slot_handle     = 'vg-plugin-boilerplate-sample-slot';
+		$slot_asset_file = VG_PLUGIN_BOILERPLATE_PLUGIN_DIR . 'build/sample-slot.asset.php';
+
+		if ( file_exists( $slot_asset_file ) ) {
+			$slot_asset = include $slot_asset_file;
+
+			wp_enqueue_script(
+				$slot_handle,
+				VG_PLUGIN_BOILERPLATE_PLUGIN_URL . 'build/sample-slot.js',
+				$slot_asset['dependencies'] ?? array(),
+				$slot_asset['version'] ?? VG_PLUGIN_BOILERPLATE_VERSION,
+				true
+			);
+		}
 	}
 
 	/**
