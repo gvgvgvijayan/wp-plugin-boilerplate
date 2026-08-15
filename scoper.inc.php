@@ -44,32 +44,27 @@ return [
     //
     // For more see: https://github.com/humbug/php-scoper/blob/master/docs/configuration.md#finders-and-paths
     'finders' => [
-        /*
-        $finder::create()->files()->in('src'),
-        $finder::create()
-            ->files()
-            ->ignoreVCS(true)
-            ->notName('/LICENSE|.*\\.md|.*\\.dist|Makefile|composer\\.json|composer\\.lock/')
-            ->exclude([
-                'doc',
-                'test',
-                'test_old',
-                'tests',
-                'Tests',
-                'vendor-bin',
-            ])
-            ->in('vendor'),
-        $finder::create()->append([
-            'composer.json',
-        ]),
-        */
-		// Example: Uncomment and adjust to scope your vendor dependencies.
-		// $finder::create()->files()
-		// ->in( [
-		// 	'vendor/php-di',
-		// 	'vendor/psr/container'
-		// ] )
-		// ->name( [ '*.php', 'LICENSE', 'composer.json' ] ),
+        // Scope the bundled PHP-DI runtime dependency (and its PSR container
+        // interface) into the plugin's ThirdParty namespace. This is active
+        // because PHP-DI is provided by this boilerplate.
+        $finder::create()->files()
+            ->in( [
+                'vendor/php-di',
+                'vendor/psr/container',
+            ] )
+            ->name( [ '*.php', 'LICENSE', 'composer.json' ] ),
+
+        // Example: Uncomment to scope a vendored payment/API SDK instead.
+        // $finder::create()
+        //     ->files()
+        //     ->ignoreVCS( true )
+        //     ->notName( '/LICENSE|.*\\.md|.*\\.dist|Makefile|composer\\.json|composer\\.lock/' )
+        //     ->exclude( [
+        //         'doc',
+        //         'test',
+        //         'tests',
+        //     ] )
+        //     ->in( 'vendor/some-sdk' ),
     ],
 
     // List of excluded files, i.e. files for which the content will be left untouched.

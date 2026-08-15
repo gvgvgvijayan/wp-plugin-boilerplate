@@ -6,19 +6,30 @@
   "scripts": {
     "build": "wp-scripts build --webpack-copy-php --experimental-modules",
     "build-blocks-manifest": "wp-scripts build-blocks-manifest",
+    "env": "NODE_OPTIONS=\"--network-family-autoselection-attempt-timeout=1000\" wp-env",
     "format": "wp-scripts format",
     "lint:css": "wp-scripts lint-style",
     "lint:js": "wp-scripts lint-js",
     "packages-update": "wp-scripts packages-update",
     "plugin-zip": "wp-scripts plugin-zip",
-    "start": "wp-scripts start --webpack-copy-php --experimental-modules"
+    "start": "wp-scripts start --webpack-copy-php --experimental-modules",
+    "test:e2e": "NODE_OPTIONS=\"--network-family-autoselection-attempt-timeout=1000\" NODE_TLS_REJECT_UNAUTHORIZED=0 PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS=1 wp-scripts test-playwright --config tests/e2e/playwright.config.ts",
+    "test:e2e:debug": "NODE_OPTIONS=\"--network-family-autoselection-attempt-timeout=1000\" NODE_TLS_REJECT_UNAUTHORIZED=0 PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS=1 wp-scripts test-playwright --config tests/e2e/playwright.config.ts --debug",
+    "test:e2e:setup": "NODE_OPTIONS=\"--network-family-autoselection-attempt-timeout=1000\" wp-env start",
+    "test:e2e:ui": "NODE_OPTIONS=\"--network-family-autoselection-attempt-timeout=1000\" NODE_TLS_REJECT_UNAUTHORIZED=0 PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS=1 wp-scripts test-playwright --config tests/e2e/playwright.config.ts --ui",
+    "test:unit:php": "npm run test:unit:php:setup && npm run test:unit:php:base",
+    "test:unit:php:base": "NODE_OPTIONS=\"--network-family-autoselection-attempt-timeout=1000\" wp-env run tests-cli --env-cwd=wp-content/plugins/wp-plugin-boilerplate vendor/bin/phpunit",
+    "test:unit:php:setup": "NODE_OPTIONS=\"--network-family-autoselection-attempt-timeout=1000\" wp-env start"
   },
   "devDependencies": {
     "@wordpress/block-editor": "^15.19.0",
     "@wordpress/blocks": "^15.19.0",
+    "@wordpress/components": "^33.1.0",
+    "@wordpress/edit-post": "^8.53.0",
     "@wordpress/env": "^11.3.0",
     "@wordpress/i18n": "^6.19.0",
     "@wordpress/interactivity": "^6.46.0",
+    "@wordpress/plugins": "^7.53.0",
     "@wordpress/scripts": "^32.2.0"
   },
   "prettier": "@wordpress/prettier-config"
