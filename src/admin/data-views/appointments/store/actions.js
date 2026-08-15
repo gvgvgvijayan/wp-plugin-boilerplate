@@ -12,9 +12,11 @@ import {
 /**
  * Request a page of records.
  *
+ * Dispatched when a fetch starts so the store can reflect a loading state.
+ *
  * @return {Object} Action object.
  */
-export function getRecords() {
+export function fetchRecords() {
 	return { type: FETCH_RECORDS };
 }
 

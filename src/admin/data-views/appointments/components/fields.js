@@ -12,7 +12,7 @@ import { __ } from '@wordpress/i18n';
  */
 export const fields = [
 	{
-		id: 'title',
+		id: 'displayTitle',
 		label: __( 'Title', 'vg-plugin-boilerplate' ),
 	},
 	{
@@ -28,6 +28,6 @@ export const fields = [
  */
 export const defaultView = {
 	type: 'table',
-	fields: [ 'title', 'status' ],
+	fields: [ 'displayTitle', 'status' ],
 	perPage: 10,
 };
