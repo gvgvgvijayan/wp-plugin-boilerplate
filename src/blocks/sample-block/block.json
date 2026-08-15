@@ -1,0 +1,23 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "vg-plugin-boilerplate/sample-block",
+	"title": "Sample Block",
+	"category": "widgets",
+	"icon": "smiley",
+	"description": "A minimal sample block demonstrating the block.json + edit/save pattern. Replace or remove when building your plugin.",
+	"supports": {
+		"html": false
+	},
+	"attributes": {
+		"content": {
+			"type": "string",
+			"source": "html",
+			"selector": "p"
+		}
+	},
+	"textdomain": "vg-plugin-boilerplate",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.scss",
+	"style": "file:./style.scss"
+}
