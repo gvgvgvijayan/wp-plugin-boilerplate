@@ -14,20 +14,19 @@ import { fetchRecords, receiveRecords, receiveRecordsError } from './actions';
 import { normalizeRecords } from './utils';
 
 /**
- * Resolve a page of records from the REST API.
+ * Resolve records from the REST API.
  *
- * @param {Object} query Query args (page, search, etc.).
- * @return {Promise} Resolves to an action when the fetch completes.
+ * Written as a generator so the `fetchRecords` action is dispatched (via
+ * `yield`) before the request starts — this flips `isResolving` to true so
+ * the UI can show a loading indicator. The resolved data is then dispatched
+ * via `receiveRecords`.
  */
-export async function getRecords( query = {} ) {
+export function* getRecords() {
+	yield fetchRecords();
 	try {
-		// Flag the request as in-flight so loading state reflects it.
-		fetchRecords();
-
-		const records = await apiFetch( { path: '/wp/v2/example', query } );
-
-		return receiveRecords( normalizeRecords( records ) );
+		const records = yield apiFetch( { path: '/wp/v2/example' } );
+		yield receiveRecords( normalizeRecords( records ) );
 	} catch ( error ) {
-		return receiveRecordsError( error );
+		yield receiveRecordsError( error );
 	}
 }

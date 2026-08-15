@@ -20,7 +20,7 @@ if ( ! defined( 'WP_DEBUG_LOG' ) ) {
 }
 
 if ( ! defined( 'WP_DEBUG_DISPLAY' ) ) {
-	define( 'WP_DEBUG_DISPLAY', true );
+	define( 'WP_DEBUG_DISPLAY', false );
 }
 
 // Load the Composer autoloader (polyfills + project classes).
@@ -42,8 +42,8 @@ if ( file_exists( $_tests_dir . '/includes/functions.php' ) ) {
 	 * Manually load the plugin under test.
 	 *
 	 * Hooked into muplugins_loaded so tests run against the real bootstrap.
-	 * Guarded so the integration path degrades gracefully if the main plugin
-	 * file has not yet been scaffolded (e.g. on a fresh boilerplate checkout).
+	 * Uses tests_add_filter() (provided by the WP test suite) because
+	 * add_filter() is not yet available at this point.
 	 */
 	function _manually_load_plugin() {
 		$plugin_file = dirname( __DIR__, 2 ) . '/wp-plugin-boilerplate.php';
@@ -51,7 +51,9 @@ if ( file_exists( $_tests_dir . '/includes/functions.php' ) ) {
 			require_once $plugin_file;
 		}
 	}
-	\add_filter( 'muplugins_loaded', __NAMESPACE__ . '\_manually_load_plugin' );
+
+	// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedFunctionFound
+	tests_add_filter( 'muplugins_loaded', __NAMESPACE__ . '\_manually_load_plugin' );
 
 	require_once $_tests_dir . '/includes/bootstrap.php';
 }
