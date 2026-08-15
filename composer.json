@@ -8,7 +8,8 @@
 		}
 	],
 	"require": {
-		"php": ">=7.4"
+		"php": ">=8.0",
+		"php-di/php-di": "^7.0"
 	},
 	"require-dev": {
 		"bamarni/composer-bin-plugin": "^1.8",
@@ -32,6 +33,14 @@
 			"dealerdirect/phpcodesniffer-composer-installer": true
 		},
 		"optimize-autoloader": true
+	},
+	"scripts": {
+		"prefix-deps": "php-scoper add-prefix --force",
+		"build": [
+			"@prefix-deps",
+			"composer install --no-dev --optimize-autoloader"
+		],
+		"test": "npm run test"
 	},
 	"$schema": "https://getcomposer.org/schema.json"
 }

@@ -27,6 +27,16 @@ const customScriptConfig = {
 
 		// 5. Now, add your own custom entry points.
 		'block-styles': './src/block-styles/index.js',
+
+		// Add an entry for each non-block, non-block-style script:
+		//  - Admin Data Views screen (src/admin/data-views/appointments/index.js)
+		'admin-appointments': './src/admin/data-views/appointments/index.js',
+
+		//  - Gutenberg slotfill / plugin (src/slots/sample-slot/index.js)
+		'sample-slot': './src/slots/sample-slot/index.js',
+
+		// 6. Add any future custom entries here, e.g.:
+		// 'my-other-script': './src/somewhere/else/index.js',
 	},
 };
 
