@@ -13,19 +13,18 @@ if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 	exit;
 }
 
-// Optional: remove a custom role created by the plugin.
-// remove_role( 'my_custom_role' );
-
-// Delete plugin options (add any option keys your plugin uses here).
-// delete_option( 'vg_plugin_boilerplate_db_version' );
-// delete_option( 'vg_plugin_boilerplate_installed' );
-
-// Delete any transients the plugin set.
-// delete_transient( 'vg_plugin_boilerplate_upgrading' );
-
-// Delete user meta keys added by the plugin (if applicable).
-// global $wpdb;
-// $wpdb->delete( $wpdb->usermeta, array( 'meta_key' => '_my_plugin_user_meta' ) );
+/*
+ * Example cleanup steps — uncomment only what matches what this plugin
+ * actually created:
+ *
+ * remove_role( 'my_custom_role' );
+ * delete_option( 'vg_plugin_boilerplate_db_version' );
+ * delete_option( 'vg_plugin_boilerplate_installed' );
+ * delete_transient( 'vg_plugin_boilerplate_upgrading' );
+ *
+ * global $wpdb;
+ * $wpdb->delete( $wpdb->usermeta, array( 'meta_key' => '_my_plugin_user_meta' ) );
+ */
 
 
 /*
