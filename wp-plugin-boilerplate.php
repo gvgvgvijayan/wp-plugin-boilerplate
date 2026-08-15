@@ -1,19 +1,19 @@
 <?php
 /**
- * Plugin Name:       <plugin-name>
+ * Plugin Name:       WP Plugin Boilerplate
  * Plugin URI:        https://www.example.com/
- * Description:       <Short description of what this plugin does.>
+ * Description:       A WordPress plugin boilerplate — customize to build your plugin.
  * Version:           0.1.0
- * Requires at least: <wp-version>
- * Requires PHP:      <php-version>
- * Author:            <author-name>
+ * Requires at least: 6.5
+ * Requires PHP:      8.0
+ * Author:            Your Name
  * Author URI:        https://www.example.com/
  * License:           GPL v2 or later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain:       <text-domain>
+ * Text Domain:       vg-plugin-boilerplate
  * Domain Path:       /languages
  *
- * @package           <namespace>
+ * @package           VG\Plugin_Boilerplate
  */
 
 /*
@@ -21,27 +21,23 @@
  * this plugin is activated.
  *
  * ---------------------------------------------------------------------------
- * ⚠️  IMPORTANT — CUSTOMIZATION REQUIRED
+ * CUSTOMIZATION REQUIRED
  * ---------------------------------------------------------------------------
- * Everything below that is wrapped in angle brackets (<placeholder>) MUST be
- * replaced with values that are unique to YOUR plugin before you ship it:
+ * This file ships with working generic defaults so the plugin boots and passes
+ * CI out of the box. When you start a real project, replace these values to
+ * match YOUR plugin (keep them consistent across the codebase):
  *
- *   <plugin-name>   → e.g. "My Awesome Plugin"            (shown in Plugins list)
- *   <text-domain>   → e.g. "my-awesome-plugin"            (i18n string domain)
- *   <namespace>     → e.g. "My\Awesome_Plugin"            (PHP root namespace)
- *   <prefix>        → e.g. "MY_AWESOME_PLUGIN" or "map_"  (constants / hooks)
- *   <wp-version>    → e.g. "6.5"                          (Requires at least)
- *   <php-version>   → e.g. "7.4"                          (Requires PHP)
+ *   Namespace : VG\Plugin_Boilerplate   →  e.g. My\Awesome_Plugin
+ *   Prefix    : vg_plugin_boilerplate_  →  e.g. my_awesome_plugin_
+ *   Const     : VG_PLUGIN_BOILERPLATE_  →  e.g. MY_AWESOME_PLUGIN_
+ *   Text domain: vg-plugin-boilerplate  →  e.g. my-awesome-plugin
  *
- * Do NOT delete this file. It is the bootstrap that WordPress expects; without
- * it the plugin folder is "dead" and cannot be activated.
- *
- * Replacements are intentionally left as angle-bracketed placeholders so you
- * (or an automated scaffolder) can find and swap them without missing one.
+ * Do NOT delete this file. It is the bootstrap WordPress expects; without it
+ * the plugin folder is "dead" and cannot be activated.
  * ---------------------------------------------------------------------------
  */
 
-namespace <namespace>\Plugin_Root;
+namespace VG\Plugin_Boilerplate\Plugin_Root;
 
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -52,24 +48,24 @@ if ( ! defined( 'ABSPATH' ) ) {
 // Plugin constants (guarded so they can never be redefined twice).
 // -------------------------------------------------------------------------
 
-if ( ! defined( '<prefix>_VERSION' ) ) {
-	define( '<prefix>_VERSION', '0.1.0' );
+if ( ! defined( 'VG_PLUGIN_BOILERPLATE_VERSION' ) ) {
+	define( 'VG_PLUGIN_BOILERPLATE_VERSION', '0.1.0' );
 }
-if ( ! defined( '<prefix>_PLUGIN_DIR' ) ) {
-	define( '<prefix>_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
+if ( ! defined( 'VG_PLUGIN_BOILERPLATE_PLUGIN_DIR' ) ) {
+	define( 'VG_PLUGIN_BOILERPLATE_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 }
-if ( ! defined( '<prefix>_PLUGIN_URL' ) ) {
-	define( '<prefix>_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
+if ( ! defined( 'VG_PLUGIN_BOILERPLATE_PLUGIN_URL' ) ) {
+	define( 'VG_PLUGIN_BOILERPLATE_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 }
-if ( ! defined( '<prefix>_PLUGIN_FILE' ) ) {
-	define( '<prefix>_PLUGIN_FILE', __FILE__ );
+if ( ! defined( 'VG_PLUGIN_BOILERPLATE_PLUGIN_FILE' ) ) {
+	define( 'VG_PLUGIN_BOILERPLATE_PLUGIN_FILE', __FILE__ );
 }
-if ( ! defined( '<prefix>_TEXT_DOMAIN' ) ) {
-	define( '<prefix>_TEXT_DOMAIN', '<text-domain>' );
+if ( ! defined( 'VG_PLUGIN_BOILERPLATE_TEXT_DOMAIN' ) ) {
+	define( 'VG_PLUGIN_BOILERPLATE_TEXT_DOMAIN', 'vg-plugin-boilerplate' );
 }
-// Optional: a dedicated REST namespace, e.g. '<slug>/v1'.
-if ( ! defined( '<prefix>_REST_NAMESPACE' ) ) {
-	define( '<prefix>_REST_NAMESPACE', '<slug>/v1' );
+// Optional: a dedicated REST namespace.
+if ( ! defined( 'VG_PLUGIN_BOILERPLATE_REST_NAMESPACE' ) ) {
+	define( 'VG_PLUGIN_BOILERPLATE_REST_NAMESPACE', 'vg-plugin-boilerplate/v1' );
 }
 
 /**
@@ -81,8 +77,8 @@ if ( ! defined( '<prefix>_REST_NAMESPACE' ) ) {
  *
  * @return void
  */
-function <slug>_load_plugin() {
-	$autoloader = <prefix>_PLUGIN_DIR . 'vendor/autoload.php';
+function vg_plugin_boilerplate_load_plugin() {
+	$autoloader = VG_PLUGIN_BOILERPLATE_PLUGIN_DIR . 'vendor/autoload.php';
 
 	if ( ! file_exists( $autoloader ) ) {
 		if ( is_admin() ) {
@@ -91,9 +87,9 @@ function <slug>_load_plugin() {
 				function () {
 					printf(
 						'<div class="notice notice-error"><p>%1$s %2$s %3$s</p></div>',
-						esc_html__( '<plugin-name> Plugin Error: Composer dependencies not found. Please run', '<text-domain>' ),
+						esc_html__( 'WP Plugin Boilerplate Error: Composer dependencies not found. Please run', 'vg-plugin-boilerplate' ),
 						'<code>composer install</code>',
-						esc_html__( 'in the plugin directory.', '<text-domain>' )
+						esc_html__( 'in the plugin directory.', 'vg-plugin-boilerplate' )
 					);
 				}
 			);
@@ -103,14 +99,14 @@ function <slug>_load_plugin() {
 
 	require_once $autoloader;
 
-	$loader_file = <prefix>_PLUGIN_DIR . 'includes/Loader.php';
+	$loader_file = VG_PLUGIN_BOILERPLATE_PLUGIN_DIR . 'includes/Loader.php';
 	if ( ! file_exists( $loader_file ) ) {
 		if ( is_admin() ) {
 			add_action(
 				'admin_notices',
 				function () {
 					echo '<div class="notice notice-error"><p>' .
-						esc_html__( '<plugin-name> Plugin Error: Loader file missing.', '<text-domain>' ) .
+						esc_html__( 'WP Plugin Boilerplate Error: Loader file missing.', 'vg-plugin-boilerplate' ) .
 						'</p></div>';
 				}
 			);
@@ -121,16 +117,16 @@ function <slug>_load_plugin() {
 	require_once $loader_file;
 
 	// Bail if the Loader class is not present.
-	if ( ! class_exists( '\<namespace>\Loader' ) ) {
+	if ( ! class_exists( '\VG\Plugin_Boilerplate\Loader' ) ) {
 		if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
 			// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
-			error_log( '<plugin-name> Plugin Error: Loader class \'\\<namespace>\\Loader\' not found.' );
+			error_log( 'WP Plugin Boilerplate Error: Loader class not found.' );
 		}
 		return;
 	}
 
 	try {
-		$loader = new \<namespace>\Loader();
+		$loader = new \VG\Plugin_Boilerplate\Loader();
 		$loader->init();
 
 		/**
@@ -141,12 +137,12 @@ function <slug>_load_plugin() {
 		 *
 		 * @since 0.1.0
 		 */
-		do_action( '<prefix>_loaded' );
+		do_action( 'vg_plugin_boilerplate_loaded' );
 
 	} catch ( \Exception $e ) {
 		if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
 			// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
-			error_log( '<plugin-name> Plugin Initialization Error: ' . $e->getMessage() );
+			error_log( 'WP Plugin Boilerplate Plugin Initialization Error: ' . $e->getMessage() );
 		}
 		if ( is_admin() ) {
 			add_action(
@@ -154,7 +150,7 @@ function <slug>_load_plugin() {
 				function () use ( $e ) {
 					printf(
 						'<div class="notice notice-error"><p>%s %s</p></div>',
-						esc_html__( '<plugin-name> Plugin critical error during initialization: ', '<text-domain>' ),
+						esc_html__( 'WP Plugin Boilerplate critical error during initialization: ', 'vg-plugin-boilerplate' ),
 						esc_html( $e->getMessage() )
 					);
 				}
@@ -162,21 +158,21 @@ function <slug>_load_plugin() {
 		}
 	}
 }
-add_action( 'plugins_loaded', __NAMESPACE__ . '\\<slug>_load_plugin' );
+add_action( 'plugins_loaded', __NAMESPACE__ . '\vg_plugin_boilerplate_load_plugin' );
 
 /**
  * Load plugin textdomain.
  *
  * @return void
  */
-function <slug>_load_textdomain() {
+function vg_plugin_boilerplate_load_textdomain() {
 	load_plugin_textdomain(
-		'<text-domain>',
+		'vg-plugin-boilerplate',
 		false,
-		dirname( plugin_basename( <prefix>_PLUGIN_FILE ) ) . '/languages'
+		dirname( plugin_basename( VG_PLUGIN_BOILERPLATE_PLUGIN_FILE ) ) . '/languages'
 	);
 }
-add_action( 'init', __NAMESPACE__ . '\\<slug>_load_textdomain' );
+add_action( 'init', __NAMESPACE__ . '\vg_plugin_boilerplate_load_textdomain' );
 
 /**
  * Activation handler.
@@ -187,35 +183,35 @@ add_action( 'init', __NAMESPACE__ . '\\<slug>_load_textdomain' );
  *
  * @return void
  */
-function <slug>_activate_plugin() {
-	$installer_file = <prefix>_PLUGIN_DIR . 'includes/DB/Installer.php';
+function vg_plugin_boilerplate_activate_plugin() {
+	$installer_file = VG_PLUGIN_BOILERPLATE_PLUGIN_DIR . 'includes/DB/Installer.php';
 
 	if ( ! file_exists( $installer_file ) ) {
 		if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
 			// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
-			error_log( '<plugin-name> Activation Error: Installer file missing at ' . $installer_file );
+			error_log( 'WP Plugin Boilerplate Activation Error: Installer file missing at ' . $installer_file );
 		}
 		return;
 	}
 
 	require_once $installer_file;
 
-	if ( class_exists( '\<namespace>\DB\Installer' ) ) {
+	if ( class_exists( '\VG\Plugin_Boilerplate\DB\Installer' ) ) {
 		try {
-			$installer = new \<namespace>\DB\Installer();
+			$installer = new \VG\Plugin_Boilerplate\DB\Installer();
 			$installer->install();
 		} catch ( \Exception $e ) {
 			if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
 				// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
-				error_log( '<plugin-name> Activation Error: ' . $e->getMessage() );
+				error_log( 'WP Plugin Boilerplate Activation Error: ' . $e->getMessage() );
 			}
 		}
 	} elseif ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
 		// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
-		error_log( '<plugin-name> Activation Error: Installer class not found after requiring file.' );
+		error_log( 'WP Plugin Boilerplate Activation Error: Installer class not found after requiring file.' );
 	}
 }
-register_activation_hook( <prefix>_PLUGIN_FILE, __NAMESPACE__ . '\\<slug>_activate_plugin' );
+register_activation_hook( VG_PLUGIN_BOILERPLATE_PLUGIN_FILE, __NAMESPACE__ . '\vg_plugin_boilerplate_activate_plugin' );
 
 // Deactivation hook intentionally omitted (add one here if your plugin needs
 // deactivation-time cleanup, e.g. clearing scheduled cron events).

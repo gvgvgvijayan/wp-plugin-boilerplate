@@ -66,10 +66,13 @@ class Installer {
 	public function install() {
 		$this->maybe_update();
 
-		// Seed any default options here:
-		// if ( false === get_option( 'vg_plugin_boilerplate_installed', false ) ) {
-		//     add_option( 'vg_plugin_boilerplate_installed', 1 );
-		// }
+		/*
+		 * Seed any default options here:
+		 *
+		 * if ( false === get_option( 'vg_plugin_boilerplate_installed', false ) ) {
+		 *     add_option( 'vg_plugin_boilerplate_installed', 1 );
+		 * }
+		 */
 	}
 
 	/**
@@ -98,10 +101,13 @@ class Installer {
 		}
 		set_transient( $lock, 1, MINUTE_IN_SECONDS );
 
-		// Run one-off migrations here as the schema evolves, e.g.:
-		// if ( version_compare( $current, '1.1.0', '<' ) ) {
-		//     $this->add_some_column();
-		// }
+		/*
+		 * Run one-off migrations here as the schema evolves, e.g.:
+		 *
+		 * if ( version_compare( $current, '1.1.0', '<' ) ) {
+		 *     $this->add_some_column();
+		 * }
+		 */
 
 		// Always recreate tables for a canonical schema.
 		$this->create_tables();

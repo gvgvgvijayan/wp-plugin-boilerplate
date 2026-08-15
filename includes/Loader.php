@@ -15,7 +15,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 use VG\Plugin_Boilerplate\DB\Installer;
-use VG\Plugin_Boilerplate\ThirdParty\DI\ContainerBuilder;
 use VG\Plugin_Boilerplate\ThirdParty\Psr\Container\ContainerInterface;
 
 /**
@@ -95,7 +94,7 @@ class Loader {
 		}
 
 		try {
-			/** @var ContainerBuilder $builder */
+			// @phpstan-ignore-next-line
 			$builder         = new $scoped_builder_class();
 			$this->container = $builder->build();
 		} catch ( \Throwable $e ) {
@@ -176,9 +175,12 @@ class Loader {
 	 * @return void
 	 */
 	public function register_blocks() {
-		// Blocks are discovered from block.json via wp-scripts; register the
-		// build output directory here. Uncomment and adjust per project:
-		// register_block_type( __DIR__ . '/../build/blocks/my-block' );
+		/*
+		 * Blocks are discovered from block.json via wp-scripts; register the
+		 * build output directory here. Uncomment and adjust per project:
+		 *
+		 * register_block_type( __DIR__ . '/../build/blocks/my-block' );
+		 */
 	}
 
 	/**
@@ -195,15 +197,17 @@ class Loader {
 			return;
 		}
 
-		// Example — replace with your own controllers:
-		// try {
-		//     $this->container->get( Some_Controller::class )->register_routes();
-		// } catch ( \Throwable $e ) {
-		//     if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
-		//         // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
-		//         error_log( 'Loader: REST route registration failed: ' . $e->getMessage() );
-		//     }
-		// }
+		/*
+		 * Example — replace with your own controllers:
+		 *
+		 * try {
+		 *     $this->container->get( Some_Controller::class )->register_routes();
+		 * } catch ( \Throwable $e ) {
+		 *     if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+		 *         error_log( 'Loader: REST route registration failed: ' . $e->getMessage() );
+		 *     }
+		 * }
+		 */
 	}
 
 	/**
@@ -221,14 +225,16 @@ class Loader {
 			return;
 		}
 
-		// Example — replace with your services:
-		// try {
-		//     $this->container->get( Some_Service::class )->register();
-		// } catch ( \Throwable $e ) {
-		//     if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
-		//         // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
-		//         error_log( 'Loader: service initialization failed: ' . $e->getMessage() );
-		//     }
-		// }
+		/*
+		 * Example — replace with your services:
+		 *
+		 * try {
+		 *     $this->container->get( Some_Service::class )->register();
+		 * } catch ( \Throwable $e ) {
+		 *     if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+		 *         error_log( 'Loader: service initialization failed: ' . $e->getMessage() );
+		 *     }
+		 * }
+		 */
 	}
 }
