@@ -16,6 +16,7 @@
 		"dealerdirect/phpcodesniffer-composer-installer": "*",
 		"johnpbloch/wordpress-core": "^6.0",
 		"phpcompatibility/phpcompatibility-wp": "*",
+		"phpunit/phpunit": "^9.6",
 		"wp-coding-standards/wpcs": "*",
 		"yoast/phpunit-polyfills": "^3.0"
 	},
