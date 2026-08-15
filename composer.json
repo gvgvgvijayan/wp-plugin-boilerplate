@@ -8,13 +8,15 @@
 		}
 	],
 	"require": {
-		"php": ">=7.4"
+		"php": ">=8.1",
+		"php-di/php-di": "^7.0"
 	},
 	"require-dev": {
 		"bamarni/composer-bin-plugin": "^1.8",
 		"dealerdirect/phpcodesniffer-composer-installer": "*",
 		"johnpbloch/wordpress-core": "^6.0",
 		"phpcompatibility/phpcompatibility-wp": "*",
+		"phpunit/phpunit": "^9.6",
 		"wp-coding-standards/wpcs": "*",
 		"yoast/phpunit-polyfills": "^3.0"
 	},
@@ -31,7 +33,18 @@
 			"bamarni/composer-bin-plugin": true,
 			"dealerdirect/phpcodesniffer-composer-installer": true
 		},
-		"optimize-autoloader": true
+		"optimize-autoloader": true,
+		"platform": {
+			"php": "8.1"
+		}
+	},
+	"scripts": {
+		"prefix-deps": "composer bin scoper install --no-dev && vendor-bin/scoper/vendor/bin/php-scoper add-prefix --force",
+		"build": [
+			"@prefix-deps",
+			"composer install --no-dev --optimize-autoloader"
+		],
+		"test": "npm run test:unit:php"
 	},
 	"$schema": "https://getcomposer.org/schema.json"
 }

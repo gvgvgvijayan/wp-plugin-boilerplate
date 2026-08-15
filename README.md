@@ -36,12 +36,17 @@ The plugin follows this structure:
 
 ---
 
-# Placeholder Changes:
+# Lifecycle Hooks
 
-1. Search & replace wp-plugin-boilerplate to do the renaming work based on the context.
+This boilerplate ships a versioned, idempotent database schema installer and
+cleanup scaffold:
 
-2. Rename namespace from Plugin_Boilerplate prefixed with initial prefix `VG` to your desired namespace in composer.json (VG\\Plugin_Boilerplate\\) & scoper.inc.php (VG\Plugin_Boilerplate\ThirdParty).
+* **Activation** — `register_activation_hook` calls `Installer::install()`,
+  which creates tables at the current schema version.
+* **`admin_init`** — `Installer::maybe_update()` runs on every admin page
+  load and applies any pending migrations if `DB_VERSION` has increased.
+* **Uninstall** — `uninstall.php` is an inert template with block-commented
+  cleanup examples; uncomment only the data the plugin owns.
 
-# Lifecycle Hooks:
-
-This boilerplate intentionally omits specific activation, deactivation, and uninstall hooks. This decision provides maximum flexibility for developers to implement these crucial functions according to their plugin's unique architecture. Consider whether your plugin requires specific actions upon activation (e.g., setting up default options, creating database tables), deactivation (e.g., cleaning up temporary data), or uninstallation (e.g., removing all plugin-related data) and implement the appropriate hooks in your plugin's main file or within dedicated classes.
+See `includes/DB/Installer.php` and `uninstall.php` for the canonical
+implementation, and `AGENTS.md` for the architecture overview.
