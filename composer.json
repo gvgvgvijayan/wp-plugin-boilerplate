@@ -33,5 +33,13 @@
 		},
 		"optimize-autoloader": true
 	},
+	"scripts": {
+		"prefix-deps": "php-scoper add-prefix --force",
+		"build": [
+			"@prefix-deps",
+			"composer install --no-dev --optimize-autoloader"
+		],
+		"test": "npm run test"
+	},
 	"$schema": "https://getcomposer.org/schema.json"
 }
