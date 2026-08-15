@@ -33,7 +33,10 @@
 			"bamarni/composer-bin-plugin": true,
 			"dealerdirect/phpcodesniffer-composer-installer": true
 		},
-		"optimize-autoloader": true
+		"optimize-autoloader": true,
+		"platform": {
+			"php": "8.2.33"
+		}
 	},
 	"scripts": {
 		"prefix-deps": "php-scoper add-prefix --force",
