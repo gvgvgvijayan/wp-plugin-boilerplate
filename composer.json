@@ -39,12 +39,12 @@
 		}
 	},
 	"scripts": {
-		"prefix-deps": "php-scoper add-prefix --force",
+		"prefix-deps": "composer bin scoper install --no-dev && vendor-bin/scoper/vendor/bin/php-scoper add-prefix --force",
 		"build": [
 			"@prefix-deps",
 			"composer install --no-dev --optimize-autoloader"
 		],
-		"test": "npm run test"
+		"test": "npm run test:unit:php"
 	},
 	"$schema": "https://getcomposer.org/schema.json"
 }

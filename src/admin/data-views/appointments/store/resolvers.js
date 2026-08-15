@@ -5,10 +5,12 @@
  * exports a resolver named `getRecords` (matching `selectors.js`). WordPress
  * automatically calls it the first time `getRecords()` is selected.
  *
- * Replace the endpoint with your plugin's real REST route and prefer
- * `@wordpress/api-fetch` (which attaches the nonce automatically).
+ * Uses `@wordpress/api-fetch` which attaches the nonce automatically.
+ * Replace the endpoint with your plugin's real REST route.
  */
-import { receiveRecords, receiveRecordsError } from './actions';
+import apiFetch from '@wordpress/api-fetch';
+
+import { fetchRecords, receiveRecords, receiveRecordsError } from './actions';
 import { normalizeRecords } from './utils';
 
 /**
@@ -19,21 +21,12 @@ import { normalizeRecords } from './utils';
  */
 export async function getRecords( query = {} ) {
 	try {
-		const params = new URLSearchParams( query ).toString();
-		const url = `/wp-json/wp/v2/example${ params ? `?${ params }` : '' }`;
+		// Flag the request as in-flight so loading state reflects it.
+		fetchRecords();
 
-		const response = await fetch( url, {
-			headers: {
-				'Content-Type': 'application/json',
-				'X-WP-Nonce': window?.wpApiSettings?.nonce ?? '',
-			},
-		} );
+		const records = await apiFetch( { path: '/wp/v2/example', query } );
 
-		if ( ! response.ok ) {
-			throw new Error( `Request failed: ${ response.status }` );
-		}
-
-		return receiveRecords( normalizeRecords( await response.json() ) );
+		return receiveRecords( normalizeRecords( records ) );
 	} catch ( error ) {
 		return receiveRecordsError( error );
 	}

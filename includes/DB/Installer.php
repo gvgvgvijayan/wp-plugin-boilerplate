@@ -101,19 +101,23 @@ class Installer {
 		}
 		set_transient( $lock, 1, MINUTE_IN_SECONDS );
 
-		/*
-		 * Run one-off migrations here as the schema evolves, e.g.:
-		 *
-		 * if ( version_compare( $current, '1.1.0', '<' ) ) {
-		 *     $this->add_some_column();
-		 * }
-		 */
+		try {
+			/*
+			 * Run one-off migrations here as the schema evolves, e.g.:
+			 *
+			 * if ( version_compare( $current, '1.1.0', '<' ) ) {
+			 *     $this->add_some_column();
+			 * }
+			 */
 
-		// Always recreate tables for a canonical schema.
-		$this->create_tables();
+			// Always recreate tables for a canonical schema.
+			$this->create_tables();
 
-		update_option( self::DB_VERSION_KEY, self::DB_VERSION );
-		delete_transient( $lock );
+			update_option( self::DB_VERSION_KEY, self::DB_VERSION );
+		} finally {
+			// Always release the lock, even if a migration throws.
+			delete_transient( $lock );
+		}
 	}
 
 	/**

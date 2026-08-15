@@ -37,7 +37,7 @@ export default function AppointmentsList() {
 				fields={ fields }
 				view={ defaultView }
 				data={ records ?? [] }
-				getItemId={ ( record ) => record.id }
+				getItemId={ ( record ) => String( record.id ) }
 				isLoading={ isResolving && ! hasResolved }
 				paginationInfo={ paginationInfo }
 				onChangeView={ () => {} }

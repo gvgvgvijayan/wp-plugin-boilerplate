@@ -2,7 +2,7 @@
 <ruleset name="Custom WordPress Standards">
     <description>
         Custom WordPress coding standards for the wp-plugin-boilerplate plugin.
-        This ruleset includes PHPCompatibilityWP, targets PHP 7.4+, and follows WordPress
+        This ruleset includes PHPCompatibilityWP, targets PHP 8.0+, and follows WordPress
         Coding Standards with PSR-4 compliance.
     </description>
 
@@ -38,7 +38,7 @@
     <config name="minimum_supported_wp_version" value="6.5" />
 
     <!-- Target PHP version -->
-    <config name="testVersion" value="7.4-" />
+    <config name="testVersion" value="8.0-" />
     <rule ref="PHPCompatibilityWP" />
 
     <!-- WordPress coding standards. -->
