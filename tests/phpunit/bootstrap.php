@@ -20,7 +20,7 @@ if ( ! defined( 'WP_DEBUG_LOG' ) ) {
 }
 
 if ( ! defined( 'WP_DEBUG_DISPLAY' ) ) {
-	define( 'WP_DEBUG_DISPLAY', true );
+	define( 'WP_DEBUG_DISPLAY', false );
 }
 
 // Load the Composer autoloader (polyfills + project classes).

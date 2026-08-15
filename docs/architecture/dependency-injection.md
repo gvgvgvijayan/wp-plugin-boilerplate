@@ -47,11 +47,10 @@ indirection with little benefit, drop it.
 
 1. **`composer.json`** — `php-di/php-di: ^7.0` in `require` (provided by this
    boilerplate).
-2. **`scoper.inc.php`** — the finder block is set up to scope `vendor/php-di`
+2. **`scoper.inc.php`** — the finder block scopes `vendor/php-di`
    and `vendor/psr/container` into the plugin's `ThirdParty` namespace so
    PHP-DI never collides with another copy loaded by core or a third-party
-   plugin. (Uncomment the finder entry when you enable scoping for this
-   dependency.)
+   plugin.
 3. **`composer.json` scripts** — the planned `prefix-deps` (run PHP-Scoper)
    and `build` (re-install with `--no-dev`) scripts produce a
    production-ready `third-party/` directory.

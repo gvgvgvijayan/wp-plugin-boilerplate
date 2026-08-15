@@ -5,7 +5,7 @@
  * Description:       A WordPress plugin boilerplate — customize to build your plugin.
  * Version:           0.1.0
  * Requires at least: 6.5
- * Requires PHP:      8.0
+ * Requires PHP:      8.1
  * Author:            Your Name
  * Author URI:        https://www.example.com/
  * License:           GPL v2 or later
@@ -88,7 +88,7 @@ function vg_plugin_boilerplate_load_plugin() {
 					printf(
 						'<div class="notice notice-error"><p>%1$s %2$s %3$s</p></div>',
 						esc_html__( 'WP Plugin Boilerplate Error: Composer dependencies not found. Please run', 'vg-plugin-boilerplate' ),
-						'<code>composer install</code>',
+						wp_kses( '<code>composer install</code>', array( 'code' => array() ) ),
 						esc_html__( 'in the plugin directory.', 'vg-plugin-boilerplate' )
 					);
 				}

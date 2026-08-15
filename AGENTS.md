@@ -91,7 +91,11 @@ docs/             # Architecture & guides (concept-first, secret-free)
   Config: `tests/e2e/playwright.config.ts`.
 - **Environment**: `.wp-env.json` + `@wordpress/env`; seed via
   `bin/setup-test-env.sh`.
-- **CI**: `.github/workflows/ci.yml` runs lint (JS + PHPCS) and E2E.
+- **CI**: `.github/workflows/ci.yml` runs lint (JS + PHPCS), PHPUnit, and E2E.
+- **TLS note**: Test scripts set `NODE_TLS_REJECT_UNAUTHORIZED=0` because
+  wp-env serves over `https://127.0.0.1` with a self-signed certificate.
+  This is safe for local wp-env only — never reuse these flags for external
+  hosts.
 
 ## Security (always)
 
