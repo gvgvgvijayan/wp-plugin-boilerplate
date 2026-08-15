@@ -22,6 +22,7 @@
     <exclude-pattern>*\.(css|js)</exclude-pattern>
 
     <!-- The source directories to process. -->
+    <file>wp-plugin-boilerplate.php</file>
     <file>includes/</file>
     <file>uninstall.php</file>
 
