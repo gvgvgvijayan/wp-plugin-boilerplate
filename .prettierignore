@@ -1,0 +1,47 @@
+# Prettier scope: authored source only — never repo-wide.
+#
+# `wp-scripts format` passes this file to Prettier as `--ignore-path`, which
+# REPLACES Prettier's default `.gitignore` handling. Every exclusion must
+# therefore be listed explicitly here, or gitignored files (lockfiles, build
+# output, reports) will still be formatted.
+#
+# Prettier only matches js/jsx/json/ts/tsx/yml/yaml; SCSS is stylelint's job
+# (`npm run lint:css`) and PHP is `composer format:php`.
+
+# Build output (generated).
+build/
+dist/
+.cache/
+
+# Dependencies.
+node_modules/
+vendor/
+third-party/
+vendor-bin/
+
+# Lockfiles.
+package-lock.json
+composer.lock
+
+# Generated reports & test artifacts.
+artifacts/
+test-results/
+phpstan-baseline.local.neon
+
+# Static-analysis config and cache.
+.phpstan-cache/
+phpstan.neon
+phpstan.neon.dist
+phpstan-baseline.neon
+
+# Root configs: hand-authored to .editorconfig (tabs), not Prettier style.
+composer.json
+.wp-env.json
+webpack.config.js
+phpcs.xml
+
+# Docs.
+docs/
+
+# SCSS is owned by stylelint.
+**/*.scss

@@ -1,0 +1,65 @@
+# PHPStan configuration for the WP Plugin Boilerplate.
+#
+# Adoption policy (see AGENTS.md → "Static analysis"):
+#   - Level 5 is the current target. Existing findings are captured in
+#     phpstan-baseline.neon and remediated in thematic batches over time.
+#   - New code is held to level 5 immediately.
+#   - The WordPress extension is auto-loaded by phpstan/extension-installer;
+#     no manual `includes:` is needed in this file.
+#
+# Run: `composer phpstan` (or `vendor/bin/phpstan analyse`).
+# Regenerate the baseline: `composer phpstan:baseline`.
+
+includes:
+	- phpstan-baseline.neon
+
+parameters:
+	level: 5
+
+	# Match "Requires PHP: 8.1" in the main plugin file and the Composer
+	# platform pin (config.platform.php = 8.1).
+	phpVersion: 80100
+
+	# Authored source only. Generated and third-party trees are excluded
+	# below, so they are never analyzed.
+	paths:
+		- wp-plugin-boilerplate.php
+		- uninstall.php
+		- includes
+		- tests/phpunit
+
+	excludePaths:
+		# PHP-Scoper config is executed by the scoper PHAR, not by WordPress,
+		# and references symbols (Isolated\..., Symfony Finder) only present
+		# at prefix time.
+		- scoper.inc.php
+		# Generated / dependency / tooling trees. The `(?)` suffix marks an
+		# entry as optional: these directories are gitignored and absent on a
+		# fresh clone, and PHPStan hard-errors on a non-existent exclude path
+		# unless it is optional.
+		- build (?)
+		- vendor
+		- vendor-bin (?)
+		- third-party (?)
+		- node_modules (?)
+		- .opencode (?)
+		- tests/e2e (?)
+
+	# WordPress core test-suite stubs, so the PHPUnit bootstrap and tests can
+	# reference the test library (e.g. tests_add_filter) without a live install.
+	scanFiles:
+		- vendor/php-stubs/wordpress-tests-stubs/wordpress-tests-stubs.php
+
+	# Keep the analysis cache out of the repo root and out of git.
+	tmpDir: .phpstan-cache
+
+	# wp-compat reads the "Requires at least" header from the main plugin file
+	# to know the minimum supported WordPress version. Point at it explicitly
+	# so the check keeps working after this boilerplate folder is renamed for a
+	# downstream project (the default resolves the file from the folder name).
+	WPCompat:
+		pluginFile: wp-plugin-boilerplate.php
+
+	# The boilerplate intentionally ships example/placeholder branches and
+	# defensive `class_exists` guards. Those are captured in the baseline
+	# where they surface, not silenced globally or by lowering the level.

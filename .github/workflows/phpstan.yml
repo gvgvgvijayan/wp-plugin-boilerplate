@@ -1,0 +1,33 @@
+name: PHPStan
+
+# Non-blocking static analysis. This repo is a boilerplate: downstream projects
+# clone it and add their own code, which may not yet be level-5 clean. The job
+# reports findings but never fails the build. Raise it to a required check once
+# the baseline is empty and downstream usage is established.
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ develop, main ]
+
+jobs:
+  phpstan:
+    name: Static Analysis (PHPStan)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          coverage: none
+
+      - name: Install Composer dependencies
+        run: composer install --no-interaction
+
+      - name: Run PHPStan
+        run: composer phpstan -- --no-progress
