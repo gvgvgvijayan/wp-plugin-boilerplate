@@ -49,7 +49,7 @@
 		}
 	},
 	"scripts": {
-		"prefix-deps": "composer bin scoper install --no-dev && vendor-bin/scoper/vendor/bin/php-scoper add-prefix --force",
+		"prefix-deps": "composer --working-dir=vendor-bin/scoper install --no-dev --no-interaction && vendor-bin/scoper/vendor/humbug/php-scoper/bin/php-scoper add-prefix --force",
 		"build": [
 			"@prefix-deps",
 			"composer install --no-dev --optimize-autoloader"

@@ -3,6 +3,19 @@
   "version": "0.1.0",
   "main": "build/index.js",
   "author": "vijayan",
+  "files": [
+    "wp-plugin-boilerplate.php",
+    "uninstall.php",
+    "includes/**",
+    "third-party/**",
+    "vendor/**",
+    "build/**",
+    "languages/**",
+    "readme.*",
+    "license.*",
+    "changelog.*",
+    "!**/.git/**"
+  ],
   "scripts": {
     "build": "wp-scripts build --webpack-copy-php --experimental-modules",
     "build-blocks-manifest": "wp-scripts build-blocks-manifest",
@@ -13,6 +26,7 @@
     "lint:js": "wp-scripts lint-js src tests/e2e",
     "packages-update": "wp-scripts packages-update",
     "plugin-zip": "wp-scripts plugin-zip",
+    "release": "composer build && npm run build && npm run plugin-zip",
     "start": "wp-scripts start --webpack-copy-php --experimental-modules",
     "test:e2e": "NODE_OPTIONS=\"--network-family-autoselection-attempt-timeout=1000\" NODE_TLS_REJECT_UNAUTHORIZED=0 PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS=1 wp-scripts test-playwright --config tests/e2e/playwright.config.ts",
     "test:e2e:debug": "NODE_OPTIONS=\"--network-family-autoselection-attempt-timeout=1000\" NODE_TLS_REJECT_UNAUTHORIZED=0 PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS=1 wp-scripts test-playwright --config tests/e2e/playwright.config.ts --debug",

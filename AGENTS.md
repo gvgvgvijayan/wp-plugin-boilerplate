@@ -306,15 +306,19 @@ with `continue-on-error: true`:
 - `composer.json` `require` is minimal; `phpunit/phpunit` and PHP-DI are
   included. Dev tooling (PHPCS, PHPStan, and their extensions) lives in
   `require-dev`; add dependencies as needed.
-- `.distignore` is a **best-effort** exclusion list, not an authoritative one:
-  `wp-scripts plugin-zip` only consults it when `package.json` has a `files`
-  field. This project has none, so `plugin-zip` falls back to a hardcoded glob
-  (`build/**`, `includes/**`, `languages/**`, `uninstall.php`, `${name}.php`,
-  …). The static-analysis files are not in that glob and never ship.
-  Treat `.distignore` as documentation of intent; verify the actual zip with
-  `npm run plugin-zip` before a release.
-- **Known packaging gotcha**: because that glob uses the npm package name
-  (`vijayan-wp-plugin-boilerplate`) but the entry file is
-  `wp-plugin-boilerplate.php`, a bare `plugin-zip` produces a package **without
-  the main plugin file**. Either add a `files` field to `package.json` or pass
-  the correct name before distributing. Tracked in issue #62.
+- **Packaging** — build the distributable with `npm run release`
+  (`composer build && npm run build && npm run plugin-zip`). `wp-scripts
+  plugin-zip` reads the `package.json` `files` allowlist via `npm-packlist`;
+  without a `files` field it falls back to a WordPress-handbook glob keyed on
+  the npm `name` (`vijayan-wp-plugin-boilerplate.php`), which does **not** match
+  the entry file (`wp-plugin-boilerplate.php`) and omits `vendor/` and
+  `third-party/` — producing a non-installable archive.
+- **Always run `composer build` first.** It runs PHP-Scoper into `third-party/`
+  and then installs **production-only** dependencies, so the zip does not ship
+  PHPUnit/PHPStan/WPCS. Zipping from a dev-populated `vendor/` leaks dev tooling.
+- `.distignore` was removed in #62: `plugin-zip` never read it (`npm-packlist`
+  reads only `.npmignore`/`.gitignore`), and `files` entries override
+  `.gitignore`. Use negations in `files` for packaging excludes
+  (`!**/.git/**` must stay **last**; `npm-packlist` applies entries in order, so
+  a later glob would re-add paths a prior negation removed — source-installed
+  vendor packages otherwise carry `.git/` directories that inflate the zip).
