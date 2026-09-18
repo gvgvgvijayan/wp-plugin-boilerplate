@@ -3,8 +3,8 @@
 .deployignore
 .distignore
 .editorconfig
-.eslintignore
-.eslintrc
+eslint.config.js
+.prettierignore
 .git
 .gitignore
 .github
@@ -32,6 +32,10 @@ multisite.xml.dist
 phpcs.xml
 .phpcs.xml.dist
 phpcs.xml.dist
+phpstan.neon
+phpstan.neon.dist
+phpstan-baseline.neon
+.phpstan-cache
 README.md
 webpack.config.js
 wp-cli.local.yml

@@ -94,7 +94,6 @@ class Loader {
 		}
 
 		try {
-			// @phpstan-ignore-next-line
 			$builder         = new $scoped_builder_class();
 			$this->container = $builder->build();
 		} catch ( \Throwable $e ) {

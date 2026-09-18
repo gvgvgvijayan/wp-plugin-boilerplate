@@ -56,6 +56,11 @@ artifacts/
 tests/e2e/artifacts/
 playwright-report/
 
+# Static analysis
+.phpstan-cache/
+phpstan.neon
+phpstan-baseline.local.neon
+
 # Database backups and temporary files
 *.sql
 *.sql.gz

@@ -1,0 +1,43 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Only booleans are allowed in an if condition, mixed given\.$#'
+			identifier: if.condNotBoolean
+			count: 1
+			path: includes/DB/Installer.php
+
+		-
+			message: '#^Call to method get\(\) on an unknown class VG\\Plugin_Boilerplate\\ThirdParty\\Psr\\Container\\ContainerInterface\.$#'
+			identifier: class.notFound
+			count: 1
+			path: includes/Loader.php
+
+		-
+			message: '#^Constant VG_PLUGIN_BOILERPLATE_PLUGIN_DIR not found\.$#'
+			identifier: constant.notFound
+			count: 4
+			path: includes/Loader.php
+
+		-
+			message: '#^Constant VG_PLUGIN_BOILERPLATE_PLUGIN_URL not found\.$#'
+			identifier: constant.notFound
+			count: 4
+			path: includes/Loader.php
+
+		-
+			message: '#^Method VG\\Plugin_Boilerplate\\Loader\:\:initialize_services\(\) returns void but does not have any side effects\.$#'
+			identifier: void.pure
+			count: 1
+			path: includes/Loader.php
+
+		-
+			message: '#^Property VG\\Plugin_Boilerplate\\Loader\:\:\$container has unknown class VG\\Plugin_Boilerplate\\ThirdParty\\Psr\\Container\\ContainerInterface as its type\.$#'
+			identifier: class.notFound
+			count: 1
+			path: includes/Loader.php
+
+		-
+			message: '#^Dynamic call to static method PHPUnit\\Framework\\Assert\:\:assertTrue\(\)\.$#'
+			identifier: staticMethod.dynamicCall
+			count: 1
+			path: tests/phpunit/unit/SampleTest.php
