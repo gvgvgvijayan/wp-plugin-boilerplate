@@ -8,8 +8,11 @@ A modular WordPress plugin serving as a streamlined and reusable foundation for 
 * **Customizable**:  Adaptable to a wide range of project requirements.
 * **Modern Development Workflow**:
     * Uses `webpack` for asset bundling.
-    * Includes `eslint`, `stylelint`, and `PHPCS` for code quality.
+    * Includes `eslint`, `stylelint`, `PHPCS`, and `PHPStan` for code quality.
     * Uses `composer` for managing PHP dependencies.
+* **Static Analysis**: PHPStan (level 5) with the WordPress extension, a
+  committed baseline, and adoption-focused remediation guidance — see
+  `AGENTS.md` → "Static analysis".
 * **Block Editor Ready**: Includes structure for registering custom Gutenberg blocks.
 * **Consistent Styling**:  Provides a system for managing block styles.
 
@@ -30,6 +33,10 @@ The plugin follows this structure:
 * `composer.json`:  Defines PHP dependencies and autoloading.
 * `package.json`:  Defines JavaScript dependencies and build scripts.
 * `phpcs.xml`:  Configuration for PHP Code Sniffer.
+* `phpstan.neon.dist`:  Configuration for PHPStan static analysis.
+* `phpstan-baseline.neon`:  Baseline of known PHPStan findings (remediated in batches).
+* `eslint.config.js`:  ESLint flat config (WordPress recommended rules).
+* `.prettierignore`:  Prettier scope for `npm run format` / `format:check`.
 * `webpack.config.js`:  Configuration for Webpack.
 * `scoper.inc.php`: Configuration for PHP-Scoper.
 * `wp-plugin-boilerplate.php`:  The main plugin file.
